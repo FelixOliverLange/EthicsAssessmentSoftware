@@ -37,6 +37,7 @@ class Ansatz(models.Model):
     name = models.CharField(max_length=70, blank=False, default='', primary_key=True)
     beschreibung = models.CharField(max_length=200, blank=True, default='')
     adressiert = models.ForeignKey(to=Konsequenz,on_delete=models.CASCADE)
+    auswirkung = models.IntegerField(default=0)
     anwendung = models.ForeignKey(to=Anwendung, blank=False, on_delete=models.CASCADE)
 
 # Anforderung class
