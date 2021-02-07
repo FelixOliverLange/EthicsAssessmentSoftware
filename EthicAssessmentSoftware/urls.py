@@ -19,5 +19,5 @@ urlpatterns = [
     path('anwendung/<str:anwendung_name>/ansatz/', views.anwendung_ansatz_list),
     path('anwendung/<str:anwendung_name>/ansatz/<str:ansatz_name>/', views.anwendung_ansatz_details),
     path('anwendung/<str:anwendung_name>/ansatz/<str:ansatz_name>/anforderung/', views.anwendung_ansatz_anforderung_list),
-    path('anwendung/<str:anwendung_name>/ansatz/<str:ansatz_name>/anforderung/<str:anforderung_name>/', views.anwendung_ansatz_anforderung_details),
+    path('anwendung/<str:anwendung_name>/ansatz/<str:ansatz_name>/anforderung/<str:anforderung_name>/', views.anwendung_ansatz_anforderung_details)
 ]
