@@ -69,7 +69,7 @@ def anwendung_details(request, anwendung_name):
             return JsonResponse({}, status=status.HTTP_201_CREATED)
         else:
             # This should NOT return the errors to not reveal internal server errors. Instead this SHOULD be logged. But this is the insecure first version.
-            return JsonResponse(AnwendungSerializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return JsonResponse(anwendung_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     # DELETE for Anwendung with conditions
     elif request.method == 'DELETE':
@@ -106,6 +106,9 @@ def anwendung_stakeholder_list(request, anwendung_name):
         if stakeholder_serializer.is_valid():
             stakeholder_serializer.save()
             return JsonResponse({},status=status.HTTP_201_CREATED)
+        else:
+            # This should NOT return the errors to not reveal internal server errors. Instead this SHOULD be logged. But this is the insecure first version.
+            return JsonResponse(stakeholder_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     # Delete for Stakeholders with condition
     elif request.method == 'DELETE':
@@ -141,12 +144,51 @@ def anwendung_stakeholder_details(request, anwendung_name, stakeholder_name):
             return JsonResponse({}, status=status.HTTP_201_CREATED)
         else:
             # This should NOT return the errors to not reveal internal server errors. Instead this SHOULD be logged. But this is the insecure first version.
-            return JsonResponse(StakeholderSerializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return JsonResponse(stakeholder_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     # DELETE for Stakeholder with conditions
     elif request.method == 'DELETE':
         stakeholders.delete()
         return JsonResponse({'message': 'Stakeholder was deleted successfully!'}, status=status.HTTP_200_OK)
+
+    # block for any other methods. This should be blocked by the api_view spec, but as a doc / security measure:
+    else:
+        return JsonResponse({}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
+
+@api_view(['GET', 'POST', 'DELETE'])
+def anwendung_motivation_list(request, anwendung_name):
+    # This is only done here to catch cases where the declared Anwendung does not exist
+    try:
+        anwendung_object = Anwendung.objects.get(name=anwendung_name)
+    except Anwendung.DoesNotExist:
+        return JsonResponse({'message': 'the requested object does not exist'}, status=status.HTTP_404_NOT_FOUND)
+
+    # GET for Motivation
+    if request.method == 'GET':
+        # get Motivation via "Find all objects by condition"
+        motivations = Motivation.objects.filter(anwendung__name=anwendung_name)
+        motivation_serializer = MotivationSerializer(motivations, many=True)
+        return JsonResponse(motivation_serializer.data, status=status.HTTP_200_OK, safe=False)
+
+    # POST for Motivation
+    # TODO: Potentially, anwendung_name should be used as part of this as well to be inserted before serialization
+    # For that, see https://sunscrapers.com/blog/the-ultimate-tutorial-for-django-rest-framework-functional-endpoints-and-api-nesting-part-6/
+    elif request.method == 'POST':
+        motivation_data = JSONParser().parse(request)
+        motivation_serializer = MotivationSerializer(data=motivation_data)
+        if motivation_serializer.is_valid():
+            motivation_serializer.save()
+            return JsonResponse({},status=status.HTTP_201_CREATED)
+        else:
+            # This should NOT return the errors to not reveal internal server errors. Instead this SHOULD be logged. But this is the insecure first version.
+            return JsonResponse(motivation_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    # Delete for Motivation with condition
+    elif request.method == 'DELETE':
+        # get Stakeholder via "Find all objects by condition"
+        Motivation.objects.filter(anwendung__name=anwendung_name).delete()
+        return JsonResponse({'message':'objects deleted'}, status=status.HTTP_200_OK)
 
     # block for any other methods. This should be blocked by the api_view spec, but as a doc / security measure:
     else:
