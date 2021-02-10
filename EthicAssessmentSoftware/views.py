@@ -66,7 +66,7 @@ def anwendung_details(request, anwendung_name):
         if anwendung_serializer.is_valid():
             anwendung_serializer.save()
             # Theoretically one could respond with the data sent. We don't do so here because of reflection attacks
-            return JsonResponse({}, status=status.HTTP_201_CREATED)
+            return JsonResponse({}, status=status.HTTP_202_ACCEPTED)
         else:
             # This should NOT return the errors to not reveal internal server errors. Instead this SHOULD be logged. But this is the insecure first version.
             return JsonResponse(anwendung_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -141,7 +141,7 @@ def anwendung_stakeholder_details(request, anwendung_name, stakeholder_name):
         if stakeholder_serializer.is_valid():
             stakeholder_serializer.save()
             # Theoretically one could respond with the data sent. We don't do so here because of reflection attacks
-            return JsonResponse({}, status=status.HTTP_201_CREATED)
+            return JsonResponse({}, status=status.HTTP_202_ACCEPTED)
         else:
             # This should NOT return the errors to not reveal internal server errors. Instead this SHOULD be logged. But this is the insecure first version.
             return JsonResponse(stakeholder_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -206,7 +206,7 @@ def anwendung_motivation_details(request, anwendung_name, motivation_name):
     # GET for a specific Stakeholder (Single request)
     if request.method == 'GET':
         motivation_serializer = MotivationSerializer(motivation)
-        return JsonResponse(motivation_serializer.data,status=status.HTTP_200_OK)
+        return JsonResponse(motivation_serializer.data,status=status.HTTP_202_ACCEPTED)
 
     # PUT for a specific Stakeholder
     elif request.method == 'PUT':
@@ -261,3 +261,34 @@ def anwendung_ansatz_list(request, anwendung_name):
     # block for any other methods. This should be blocked by the api_view spec, but as a doc / security measure:
     else:
         return JsonResponse({}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
+# endpoint for Ansatz details
+@api_view(['GET', 'PUT', 'DELETE'])
+def anwendung_ansatz_details(request, anwendung_name, ansatz_name):
+    try:
+        ansatz = Ansatz.objects.get(name = ansatz_name, anwendung__name = anwendung_name)
+    except Ansatz.DoesNotExist:
+        return JsonResponse({'message':'Ansatz not found for this Anwendung or overall'}, status=status.HTTP_404_NOT_FOUND)
+
+    # GET for a specific Ansatz
+    if request.method == 'GET':
+        ansatz_serializer = AnsatzSerializer(ansatz)
+        return JsonResponse(ansatz_serializer.data,status=status.HTTP_200_OK)
+
+    # PUT for a specific Ansatz
+    elif request.method == 'PUT':
+        ansatz_data = JSONParser().parse(request)
+        ansatz_serializer = AnsatzSerializer(ansatz, data = ansatz_data)
+        if ansatz_serializer.is_valid():
+            ansatz_serializer.save()
+            return JsonResponse({}, status=status.HTTP_202_ACCEPTED)
+        else:
+            return JsonResponse({}, status=status.HTTP_400_BAD_REQUEST)
+
+    # DELETE fpr a specific Ansatz
+    elif request.method == 'DELETE':
+        ansatz.delete()
+        return JsonResponse({'message':'the ansatz has been deleted'}, status=status.HTTP_200_OK)
+
+    else:
+        return JsonResponse({'message':'this method is not allowed'},status=status.HTTP_405_METHOD_NOT_ALLOWED)
