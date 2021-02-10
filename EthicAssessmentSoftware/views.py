@@ -193,3 +193,36 @@ def anwendung_motivation_list(request, anwendung_name):
     # block for any other methods. This should be blocked by the api_view spec, but as a doc / security measure:
     else:
         return JsonResponse({}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
+# endpoint for Motivation details
+@api_view(['GET', 'PUT', 'DELETE'])
+def anwendung_motivation_details(request, anwendung_name, motivation_name):
+    # get appliceable motivation objects first
+    try:
+        motivation = Motivation.objects.filter(name=motivation_name, anwendung__name=anwendung_name)
+    except Motivation.DoesNotExist:
+        return JsonResponse({'message':'the specified motivation does not exist (for this application)'}, status=status.HTTP_404_NOT_FOUND)
+
+    # GET for a specific Stakeholder (Single request)
+    if request.method == 'GET':
+        motivation_serializer = MotivationSerializer(motivation)
+        return JsonResponse(motivation_serializer.data,status=status.HTTP_200_OK)
+
+    # PUT for a specific Stakeholder
+    elif request.method == 'PUT':
+        motivation_data = JSONParser().parse(request)
+        motivation_serializer = MotivationSerializer(motivation, data=motivation_data)
+        if motivation_serializer.is_valid():
+            motivation_serializer.save()
+            return JsonResponse({}, status=status.HTTP_201_CREATED)
+        else:
+            return JsonResponse(motivation_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    # DELETE for a specific stakeholder
+    elif request.method == 'DELETE':
+        motivation.delete()
+        return JsonResponse({'message':'motivation has been deleted'}, status=status.HTTP_200_OK)
+
+    else:
+        return JsonResponse({}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
