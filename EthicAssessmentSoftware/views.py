@@ -226,3 +226,38 @@ def anwendung_motivation_details(request, anwendung_name, motivation_name):
     else:
         return JsonResponse({}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
+# Endpoints for Ansatz lists
+@api_view(['GET', 'POST', 'DELETE'])
+def anwendung_ansatz_list(request, anwendung_name):
+    # get application first to check if it exists
+    try:
+        anwendung = Anwendung.objects.get(name=anwendung_name)
+    except Anwendung.DoesNotExist():
+        return JsonResponse({}, status=status.HTTP_404_NOT_FOUND)
+
+    # GET for all Ansatz
+    if request.method == 'GET':
+        ansaetze = Ansatz.objects.filter(anwendung__name = anwendung_name)
+        ansatz_serializer = AnwendungSerializer(ansaetze, many=True)
+        return JsonResponse(ansatz_serializer.data, status=status.HTTP_200_OK, safe=False)
+
+    # POST for Ansatz
+    elif request.method == 'POST':
+        ansatz_data = JSONParser().parse(request)
+        ansatz_serializer = AnsatzSerializer(data=ansatz_data)
+        if ansatz_serializer.is_valid():
+            ansatz_serializer.save()
+            return JsonResponse({}, status=status.HTTP_201_CREATED)
+        else:
+            # This should NOT return the errors to not reveal internal server errors. Instead this SHOULD be logged. But this is the insecure first version.
+            return JsonResponse(ansatz_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    # Delete for Motivation with condition
+    elif request.method == 'DELETE':
+        # get Stakeholder via "Find all objects by condition"
+        Ansatz.objects.filter(anwendung__name=anwendung_name).delete()
+        return JsonResponse({'message': 'objects deleted'}, status=status.HTTP_200_OK)
+
+    # block for any other methods. This should be blocked by the api_view spec, but as a doc / security measure:
+    else:
+        return JsonResponse({}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
