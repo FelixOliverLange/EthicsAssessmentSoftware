@@ -1,4 +1,4 @@
-from django.conf.urls import path
+from django.urls import path
 from EthicAssessmentSoftware import views
 # This follows
 #  https://docs.djangoproject.com/en/3.1/topics/http/urls/
