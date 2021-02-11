@@ -353,12 +353,12 @@ def anwendung_motivation_konsequenz_details(request, anwendung_name, motivation_
     # DELETE for a specific Consequence
     elif request.method == 'DELETE':
         konsequenz.delete()
-        return JsonResponse({'message':'the Konsequnz has been deleted'})
+        return JsonResponse({'message':'the Konsequnz has been deleted'}, status=status.HTTP_200_OK)
     # backstop
     else:
         return JsonResponse({'message':'the method is not allowed'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
-# Endpoints for Konsequenz lists
+# Endpoints for Anforderung lists
 @api_view(['GET', 'POST', 'DELETE'])
 def anwendung_ansatz_anforderung_list(request, anwendung_name, ansatz_name):
     # check if the combination exists
@@ -392,3 +392,35 @@ def anwendung_ansatz_anforderung_list(request, anwendung_name, ansatz_name):
     # Backstop
     else:
         return JsonResponse({'message':'method not allowed'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
+# endpoint for Anforderung details
+@api_view(['GET', 'PUT', 'DELETE'])
+def anwendung_ansatz_anforderung_details(request, anwendung_name, ansatz_name, anforderung_name):
+    try:
+        anforderung = Anforderung.objects.get(name = anforderung_name, ansatz__name = ansatz_name, ansatz_anwendung__name = anwendung_name)
+    except Anforderung.DoesNotExist:
+        return JsonResponse({'message': 'ansatz not found'}, status=status.HTTP_404_NOT_FOUND)
+
+    # GET for a specific Anforderung
+    if request.method == 'GET':
+        anforderun_serializer = AnforderungSerializer(anforderung)
+        return JsonResponse(anforderun_serializer.data, status=status.HTTP_200_OK)
+
+    # PUT for a specific Anforderung
+    elif request.method == 'PUT':
+        anforderung_data = JSONParser.parse(request)
+        anforderung_serializer = AnforderungSerializer(anforderung, data=anforderung_data)
+        if anforderung_serializer.is_valid():
+            anforderung_serializer.save()
+            return JsonResponse({}, status=status.HTTP_202_ACCEPTED)
+        else:
+            return JsonResponse(anforderung_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    # DELETE for a specific Anfoderung
+    elif request.method == 'DELETE':
+        anforderung.delete()
+        return JsonResponse({'message': 'the Ansatz has been deleted'}, status=status.HTTP_200_OK)
+
+    # Backstop
+    else:
+        return JsonResponse({'message': 'method not allowed'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
