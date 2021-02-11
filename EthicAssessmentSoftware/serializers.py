@@ -5,7 +5,7 @@ from EthicAssessmentSoftware.models import *
 class AnwendungSerializer(serializers.ModelSerializer):
     class Meta:
         model = Anwendung
-        fields = ('name')
+        fields = ('name',)
 
 # Serializer for Motivation
 class MotivationSerializer(serializers.ModelSerializer):
