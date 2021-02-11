@@ -61,7 +61,7 @@ def anwendung_details(request, anwendung_name):
 
     # PUT for Anwendung
     elif request.method == 'PUT':
-        anwendung_data = JSONParser.parse(request)
+        anwendung_data = JSONParser().parse(request)
         anwendung_serializer = AnwendungSerializer(anwendung, data=anwendung_data)
         if anwendung_serializer.is_valid():
             anwendung_serializer.save()
@@ -136,7 +136,7 @@ def anwendung_stakeholder_details(request, anwendung_name, stakeholder_name):
 
     # PUT for Stakeholder
     elif request.method == 'PUT':
-        stakeholder_data = JSONParser.parse(request)
+        stakeholder_data = JSONParser().parse(request)
         stakeholder_serializer = StakeholderSerializer(stakeholders, data=stakeholder_data)
         if stakeholder_serializer.is_valid():
             stakeholder_serializer.save()
@@ -408,7 +408,7 @@ def anwendung_ansatz_anforderung_details(request, anwendung_name, ansatz_name, a
 
     # PUT for a specific Anforderung
     elif request.method == 'PUT':
-        anforderung_data = JSONParser.parse(request)
+        anforderung_data = JSONParser().parse(request)
         anforderung_serializer = AnforderungSerializer(anforderung, data=anforderung_data)
         if anforderung_serializer.is_valid():
             anforderung_serializer.save()
