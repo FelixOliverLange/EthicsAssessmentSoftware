@@ -316,7 +316,7 @@ def anwendung_motivation_konsequenz_list(request, anwendung_name, motivation_nam
             konsequenz_serializer.save()
             return JsonResponse({}, status=status.HTTP_201_CREATED)
         else:
-            return JsonResponse({'message':'request invalid'}, status=status.HTTP_400_BAD_REQUEST)
+            return JsonResponse(konsequenz_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     # DELETE for consequences
     elif request.method == 'DELETE':
@@ -357,3 +357,38 @@ def anwendung_motivation_konsequenz_details(request, anwendung_name, motivation_
     # backstop
     else:
         return JsonResponse({'message':'the method is not allowed'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
+# Endpoints for Konsequenz lists
+@api_view(['GET', 'POST', 'DELETE'])
+def anwendung_ansatz_anforderung_list(request, anwendung_name, ansatz_name):
+    # check if the combination exists
+    try:
+        ansatz = Ansatz.objects.filter(name=ansatz_name, anwendung__name=anwendung_name)
+    except Ansatz.DoesNotExist:
+        return JsonResponse({'message': 'no motivation found for this combination'}, status=status.HTTP_404_NOT_FOUND)
+
+    # GET for anforderungen
+    if request.method == 'GET':
+        anforderungen = Anforderung.objects.filter(ansatz__name = ansatz_name, ansatz__anwendung__name = anwendung_name)
+        anforderung_serializer = AnforderungSerializer(anforderungen, many=True)
+        return JsonResponse(anforderung_serializer.data, status=status.HTTP_200_OK, safe=False)
+
+    # POST for anforderungen
+    elif request.method == 'POST':
+        ansatz_data = JSONParser().parse(request)
+        ansatz_serializer = AnsatzSerializer(data=ansatz_data)
+        if ansatz_serializer.is_valid():
+            ansatz_serializer.save()
+            return JsonResponse({}, status=status.HTTP_201_CREATED)
+        else:
+            return JsonResponse(ansatz_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+    # DELETE for anforderungen
+    elif request.method == 'DELETE':
+        Anforderung.objects.filter(ansatz__name=ansatz_name, ansatz__anwendung__name=anwendung_name).delete()
+        return JsonResponse({'message':'all Anforderungen have been deleted'}, status=status.HTTP_200_OK)
+
+    # Backstop
+    else:
+        return JsonResponse({'message':'method not allowed'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
