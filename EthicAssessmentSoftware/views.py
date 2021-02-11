@@ -91,14 +91,14 @@ def anwendung_stakeholder_list(request, anwendung_name):
     try:
         anwendung_object = Anwendung.objects.get(name=anwendung_name)
     except Anwendung.DoesNotExist:
-        return JsonResponse({'message': 'the requested object does not exist'}, status=status.HTTP_404_NOT_FOUND)
+        return JsonResponse({'message': 'no stakeholders found'}, status=status.HTTP_404_NOT_FOUND)
 
     # GET for Stakeholder
     if request.method == 'GET':
         # get Stakeholder via "Find all objects by condition"
         stakeholders = Stakeholder.objects.filter(anwendung__name=anwendung_name)
         stakeholder_serializer = StakeholderSerializer(stakeholders, many=True)
-        return JsonResponse(StakeholderSerializer.data, status=status.HTTP_200_OK, safe=False)
+        return JsonResponse(stakeholder_serializer.data, status=status.HTTP_200_OK, safe=False)
 
     # POST for Stakeholder
     # TODO: Potentially, anwendung_name should be used as part of this as well to be inserted before serialization
