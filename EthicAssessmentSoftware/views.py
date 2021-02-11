@@ -128,7 +128,7 @@ def anwendung_stakeholder_list(request, anwendung_name):
 def anwendung_stakeholder_details(request, anwendung_name, stakeholder_name):
     # get all appliceable stakeholders first
     try:
-        stakeholders = Stakeholder.objects.filter(name=stakeholder_name, anwendung__name=anwendung_name)
+        stakeholders = Stakeholder.objects.get(name=stakeholder_name, anwendung__name=anwendung_name)
     except Stakeholder.DoesNotExist:
         return JsonResponse({'message':'no matching stakeholder for name and application found'}, status=status.HTTP_404_NOT_FOUND)
 
@@ -202,7 +202,7 @@ def anwendung_motivation_list(request, anwendung_name):
 def anwendung_motivation_details(request, anwendung_name, motivation_name):
     # get appliceable motivation objects first
     try:
-        motivation = Motivation.objects.filter(name=motivation_name, anwendung__name=anwendung_name)
+        motivation = Motivation.objects.get(name=motivation_name, anwendung__name=anwendung_name)
     except Motivation.DoesNotExist:
         return JsonResponse({'message':'the specified motivation does not exist (for this application)'}, status=status.HTTP_404_NOT_FOUND)
 
