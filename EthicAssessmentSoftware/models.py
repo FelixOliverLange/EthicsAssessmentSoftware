@@ -13,7 +13,7 @@ class Anwendung(models.Model):
 class Motivation(models.Model):
     name = models.CharField(max_length=70, blank=False, default='', primary_key=True)
     beschreibung = models.CharField(max_length=200, blank=True, default='')
-    shutzklasse = models.CharField(max_length=25, blank=False, default='')
+    schutzklasse = models.CharField(max_length=25, blank=False, default='')
     prioritaet = models.IntegerField(default=1)
     ist_recht = models.BooleanField(default=False)
     anwendung = models.ForeignKey(to=Anwendung, blank=False, on_delete=models.CASCADE)

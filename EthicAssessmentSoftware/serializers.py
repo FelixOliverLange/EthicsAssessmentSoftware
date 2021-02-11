@@ -11,7 +11,7 @@ class AnwendungSerializer(serializers.ModelSerializer):
 class MotivationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Motivation
-        fields = ('name','beschreibung','shutzklasse','prioritaet','ist_recht','anwendung')
+        fields = ('name','beschreibung','schutzklasse','prioritaet','ist_recht','anwendung')
 
 # Serializer for Stakeholder
 class StakeholderSerializer(serializers.ModelSerializer):
