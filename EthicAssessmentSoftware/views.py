@@ -238,7 +238,7 @@ def anwendung_ansatz_list(request, anwendung_name):
     # GET for all Ansatz
     if request.method == 'GET':
         ansaetze = Ansatz.objects.filter(anwendung__name = anwendung_name)
-        ansatz_serializer = AnwendungSerializer(ansaetze, many=True)
+        ansatz_serializer = AnsatzSerializer(ansaetze, many=True)
         return JsonResponse(ansatz_serializer.data, status=status.HTTP_200_OK, safe=False)
 
     # POST for Ansatz
@@ -292,3 +292,37 @@ def anwendung_ansatz_details(request, anwendung_name, ansatz_name):
 
     else:
         return JsonResponse({'message':'this method is not allowed'},status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
+# Endpoints for Konsequenz lists
+@api_view(['GET', 'POST', 'DELETE'])
+def anwendung_motivation_konsequenz_list(request, anwendung_name, motivation_name):
+    #check if the combination exists
+    try:
+        motivation = Motivation.objects.filter(name=motivation_name, anwendung__name = anwendung_name)
+    except Motivation.DoesNotExist:
+        return JsonResponse({'message':'no motivation found for this combination'}, status=status.HTTP_404_NOT_FOUND)
+
+    # GET for Consequences
+    if request.method == 'GET':
+        konsequenzen = Konsequenz.objects.filter(motivation__name = motivation_name, motivation__anwendung__name = anwendung_name)
+        konsequenzen_serializer = KonsequenzSerializer(konsequenzen, many=True)
+        return JsonResponse(konsequenzen_serializer.data, status=status.HTTP_200_OK, safe=False)
+
+    # POST for consequences
+    elif request.method == 'POST':
+        konsequenz_data = JSONParser().parse(request)
+        konsequenz_serializer = KonsequenzSerializer(data=konsequenz_data)
+        if konsequenz_serializer.is_valid():
+            konsequenz_serializer.save()
+            return JsonResponse({}, status=status.HTTP_201_CREATED)
+        else:
+            return JsonResponse({'message':'request invalid'}, status=status.HTTP_400_BAD_REQUEST)
+
+    # DELETE for consequences
+    elif request.method == 'DELETE':
+        Konsequenz.objects.filter(motivation__name=motivation_name, motivation__anwendung__name=anwendung_name).delete()
+        return JsonResponse({'message':'the konsequenz has been deleted'}, status=status.HTTP_200_OK)
+
+    # Backstop
+    else:
+        return JsonResponse({}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
