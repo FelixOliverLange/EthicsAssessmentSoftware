@@ -232,7 +232,7 @@ def anwendung_ansatz_list(request, anwendung_name):
     # get application first to check if it exists
     try:
         anwendung = Anwendung.objects.get(name=anwendung_name)
-    except Anwendung.DoesNotExist():
+    except Anwendung.DoesNotExist:
         return JsonResponse({}, status=status.HTTP_404_NOT_FOUND)
 
     # GET for all Ansatz
@@ -283,7 +283,7 @@ def anwendung_ansatz_details(request, anwendung_name, ansatz_name):
             ansatz_serializer.save()
             return JsonResponse({}, status=status.HTTP_202_ACCEPTED)
         else:
-            return JsonResponse({}, status=status.HTTP_400_BAD_REQUEST)
+            return JsonResponse(ansatz_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     # DELETE fpr a specific Ansatz
     elif request.method == 'DELETE':
@@ -321,8 +321,39 @@ def anwendung_motivation_konsequenz_list(request, anwendung_name, motivation_nam
     # DELETE for consequences
     elif request.method == 'DELETE':
         Konsequenz.objects.filter(motivation__name=motivation_name, motivation__anwendung__name=anwendung_name).delete()
-        return JsonResponse({'message':'the konsequenz has been deleted'}, status=status.HTTP_200_OK)
+        return JsonResponse({'message':'all konsequenzen have been deleted'}, status=status.HTTP_200_OK)
 
     # Backstop
     else:
         return JsonResponse({}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
+# endpoint for Konsequenz details
+@api_view(['GET', 'PUT', 'DELETE'])
+def anwendung_motivation_konsequenz_details(request, anwendung_name, motivation_name, konsequenz_name):
+    try:
+        konsequenz = Konsequenz.objects.get(name = konsequenz_name, motivation__name = motivation_name, motivation__anwendung__name = anwendung_name)
+    except Konsequenz.DoesNotExist:
+        return JsonResponse({'message': 'the konsequence does not exist fro the Anwendung and Motivation specified'}, status=status.HTTP_404_NOT_FOUND)
+
+    # GET for a specific Consequence
+    if request.method == 'GET':
+        konsequenz_serializer = KonsequenzSerializer(konsequenz)
+        return JsonResponse(konsequenz_serializer.data, status=status.HTTP_200_OK)
+
+    # PUT for a specific Consequence
+    elif request.method == 'PUT':
+        konsequenz_data = JSONParser().parse(request)
+        konsequenz_serializer = KonsequenzSerializer(konsequenz, data=konsequenz_data)
+        if konsequenz_serializer.is_valid():
+            konsequenz_serializer.save()
+            return JsonResponse({}, status=status.HTTP_202_ACCEPTED)
+        else:
+            return JsonResponse(konsequenz_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    # DELETE for a specific Consequence
+    elif request.method == 'DELETE':
+        konsequenz.delete()
+        return JsonResponse({'message':'the Konsequnz has been deleted'})
+    # backstop
+    else:
+        return JsonResponse({'message':'the method is not allowed'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
