@@ -34,7 +34,7 @@ def anwendung_list(request):
             return JsonResponse({},status=status.HTTP_201_CREATED)
         else:
             # This should NOT return the errors to not reveal internal server errors. Instead this SHOULD be logged. But this is the insecure first version.
-            return JsonResponse(AnwendungSerializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return JsonResponse({}, status=status.HTTP_400_BAD_REQUEST)
 
     # DELETE for Anwendung
     elif request.method == 'DELETE':
@@ -69,7 +69,7 @@ def anwendung_details(request, anwendung_name):
             return JsonResponse({}, status=status.HTTP_202_ACCEPTED)
         else:
             # This should NOT return the errors to not reveal internal server errors. Instead this SHOULD be logged. But this is the insecure first version.
-            return JsonResponse(anwendung_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return JsonResponse({}, status=status.HTTP_400_BAD_REQUEST)
 
     # DELETE for Anwendung with conditions
     elif request.method == 'DELETE':
@@ -108,7 +108,7 @@ def anwendung_stakeholder_list(request, anwendung_name):
             return JsonResponse({},status=status.HTTP_201_CREATED)
         else:
             # This should NOT return the errors to not reveal internal server errors. Instead this SHOULD be logged. But this is the insecure first version.
-            return JsonResponse(stakeholder_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return JsonResponse({}, status=status.HTTP_400_BAD_REQUEST)
 
     # Delete for Stakeholders with condition
     elif request.method == 'DELETE':
@@ -144,7 +144,7 @@ def anwendung_stakeholder_details(request, anwendung_name, stakeholder_name):
             return JsonResponse({}, status=status.HTTP_202_ACCEPTED)
         else:
             # This should NOT return the errors to not reveal internal server errors. Instead this SHOULD be logged. But this is the insecure first version.
-            return JsonResponse(stakeholder_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return JsonResponse({}, status=status.HTTP_400_BAD_REQUEST)
 
     # DELETE for Stakeholder with conditions
     elif request.method == 'DELETE':
@@ -182,7 +182,7 @@ def anwendung_motivation_list(request, anwendung_name):
             return JsonResponse({},status=status.HTTP_201_CREATED)
         else:
             # This should NOT return the errors to not reveal internal server errors. Instead this SHOULD be logged. But this is the insecure first version.
-            return JsonResponse(motivation_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return JsonResponse({}, status=status.HTTP_400_BAD_REQUEST)
 
     # Delete for Motivation with condition
     elif request.method == 'DELETE':
@@ -216,7 +216,7 @@ def anwendung_motivation_details(request, anwendung_name, motivation_name):
             motivation_serializer.save()
             return JsonResponse({}, status=status.HTTP_201_CREATED)
         else:
-            return JsonResponse(motivation_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return JsonResponse({}, status=status.HTTP_400_BAD_REQUEST)
 
     # DELETE for a specific stakeholder
     elif request.method == 'DELETE':
@@ -250,7 +250,7 @@ def anwendung_ansatz_list(request, anwendung_name):
             return JsonResponse({}, status=status.HTTP_201_CREATED)
         else:
             # This should NOT return the errors to not reveal internal server errors. Instead this SHOULD be logged. But this is the insecure first version.
-            return JsonResponse(ansatz_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return JsonResponse({}, status=status.HTTP_400_BAD_REQUEST)
 
     # Delete for Motivation with condition
     elif request.method == 'DELETE':
@@ -283,7 +283,7 @@ def anwendung_ansatz_details(request, anwendung_name, ansatz_name):
             ansatz_serializer.save()
             return JsonResponse({}, status=status.HTTP_202_ACCEPTED)
         else:
-            return JsonResponse(ansatz_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return JsonResponse({}, status=status.HTTP_400_BAD_REQUEST)
 
     # DELETE fpr a specific Ansatz
     elif request.method == 'DELETE':
@@ -316,7 +316,7 @@ def anwendung_motivation_konsequenz_list(request, anwendung_name, motivation_nam
             konsequenz_serializer.save()
             return JsonResponse({}, status=status.HTTP_201_CREATED)
         else:
-            return JsonResponse(konsequenz_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return JsonResponse({}, status=status.HTTP_400_BAD_REQUEST)
 
     # DELETE for consequences
     elif request.method == 'DELETE':
@@ -348,7 +348,7 @@ def anwendung_motivation_konsequenz_details(request, anwendung_name, motivation_
             konsequenz_serializer.save()
             return JsonResponse({}, status=status.HTTP_202_ACCEPTED)
         else:
-            return JsonResponse(konsequenz_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return JsonResponse({}, status=status.HTTP_400_BAD_REQUEST)
 
     # DELETE for a specific Consequence
     elif request.method == 'DELETE':
@@ -381,7 +381,7 @@ def anwendung_ansatz_anforderung_list(request, anwendung_name, ansatz_name):
             ansatz_serializer.save()
             return JsonResponse({}, status=status.HTTP_201_CREATED)
         else:
-            return JsonResponse(ansatz_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return JsonResponse({}, status=status.HTTP_400_BAD_REQUEST)
 
 
     # DELETE for anforderungen
@@ -414,7 +414,7 @@ def anwendung_ansatz_anforderung_details(request, anwendung_name, ansatz_name, a
             anforderung_serializer.save()
             return JsonResponse({}, status=status.HTTP_202_ACCEPTED)
         else:
-            return JsonResponse(anforderung_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return JsonResponse({}, status=status.HTTP_400_BAD_REQUEST)
 
     # DELETE for a specific Anfoderung
     elif request.method == 'DELETE':
