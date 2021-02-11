@@ -62,8 +62,11 @@ def anwendung_details(request, anwendung_name):
     # PUT for Anwendung
     elif request.method == 'PUT':
         anwendung_data = JSONParser().parse(request)
-        anwendung_serializer = AnwendungSerializer(anwendung, data=anwendung_data)
+        anwendung_serializer = AnwendungSerializer(anwendung, data=anwendung_data, partial=False)
         if anwendung_serializer.is_valid():
+            # This needs to be added to remove the old Anwendung. You can only change the name via PUT here, which is the primary key.
+            # So if you exec this without the following delete call, a new Anwendung will simply be created. Which is not the intention of PUT here.
+            anwendung.delete()
             anwendung_serializer.save()
             # Theoretically one could respond with the data sent. We don't do so here because of reflection attacks
             return JsonResponse({}, status=status.HTTP_202_ACCEPTED)
