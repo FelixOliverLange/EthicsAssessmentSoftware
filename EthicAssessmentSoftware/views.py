@@ -142,6 +142,9 @@ def anwendung_stakeholder_details(request, anwendung_name, stakeholder_name):
         stakeholder_data = JSONParser().parse(request)
         stakeholder_serializer = StakeholderSerializer(stakeholders, data=stakeholder_data)
         if stakeholder_serializer.is_valid():
+            # This needs to be added to remove the old Stakeholder. You can change the name via PUT here, which is the primary key.
+            # So if you exec this without the following delete call, a new Anwendung will simply be created. Which is not the intention of PUT here.
+            stakeholders.delete()
             stakeholder_serializer.save()
             # Theoretically one could respond with the data sent. We don't do so here because of reflection attacks
             return JsonResponse({}, status=status.HTTP_202_ACCEPTED)
@@ -216,6 +219,7 @@ def anwendung_motivation_details(request, anwendung_name, motivation_name):
         motivation_data = JSONParser().parse(request)
         motivation_serializer = MotivationSerializer(motivation, data=motivation_data)
         if motivation_serializer.is_valid():
+            motivation.delete()
             motivation_serializer.save()
             return JsonResponse({}, status=status.HTTP_201_CREATED)
         else:
@@ -283,6 +287,7 @@ def anwendung_ansatz_details(request, anwendung_name, ansatz_name):
         ansatz_data = JSONParser().parse(request)
         ansatz_serializer = AnsatzSerializer(ansatz, data = ansatz_data)
         if ansatz_serializer.is_valid():
+            ansatz.delete()
             ansatz_serializer.save()
             return JsonResponse({}, status=status.HTTP_202_ACCEPTED)
         else:
@@ -348,6 +353,7 @@ def anwendung_motivation_konsequenz_details(request, anwendung_name, motivation_
         konsequenz_data = JSONParser().parse(request)
         konsequenz_serializer = KonsequenzSerializer(konsequenz, data=konsequenz_data)
         if konsequenz_serializer.is_valid():
+            konsequenz.delete()
             konsequenz_serializer.save()
             return JsonResponse({}, status=status.HTTP_202_ACCEPTED)
         else:
@@ -414,6 +420,7 @@ def anwendung_ansatz_anforderung_details(request, anwendung_name, ansatz_name, a
         anforderung_data = JSONParser().parse(request)
         anforderung_serializer = AnforderungSerializer(anforderung, data=anforderung_data)
         if anforderung_serializer.is_valid():
+            anforderung.delete()
             anforderung_serializer.save()
             return JsonResponse({}, status=status.HTTP_202_ACCEPTED)
         else:
