@@ -31,7 +31,7 @@ def anwendung_list(request):
         if anwendung_serializer.is_valid():
             anwendung_serializer.save()
             # Theoretically one could respond with the data sent. We don't do so here because of reflection attacks
-            return JsonResponse({},status=status.HTTP_201_CREATED)
+            return JsonResponse(anwendung_serializer.data,status=status.HTTP_201_CREATED)
         else:
             # This should NOT return the errors to not reveal internal server errors. Instead this SHOULD be logged. But this is the insecure first version.
             return JsonResponse({}, status=status.HTTP_400_BAD_REQUEST)
@@ -105,7 +105,7 @@ def anwendung_stakeholder_list(request, anwendung_name):
         stakeholder_serializer = StakeholderSerializer(data=stakeholder_data)
         if stakeholder_serializer.is_valid():
             stakeholder_serializer.save()
-            return JsonResponse({},status=status.HTTP_201_CREATED)
+            return JsonResponse(stakeholder_serializer.data,status=status.HTTP_201_CREATED)
         else:
             # This should NOT return the errors to not reveal internal server errors. Instead this SHOULD be logged. But this is the insecure first version.
             return JsonResponse({}, status=status.HTTP_400_BAD_REQUEST)
@@ -179,7 +179,7 @@ def anwendung_motivation_list(request, anwendung_name):
         motivation_serializer = MotivationSerializer(data=motivation_data)
         if motivation_serializer.is_valid():
             motivation_serializer.save()
-            return JsonResponse({},status=status.HTTP_201_CREATED)
+            return JsonResponse(motivation_serializer.data,status=status.HTTP_201_CREATED)
         else:
             # This should NOT return the errors to not reveal internal server errors. Instead this SHOULD be logged. But this is the insecure first version.
             return JsonResponse({}, status=status.HTTP_400_BAD_REQUEST)
@@ -247,7 +247,7 @@ def anwendung_ansatz_list(request, anwendung_name):
         ansatz_serializer = AnsatzSerializer(data=ansatz_data)
         if ansatz_serializer.is_valid():
             ansatz_serializer.save()
-            return JsonResponse({}, status=status.HTTP_201_CREATED)
+            return JsonResponse(ansatz_serializer.data, status=status.HTTP_201_CREATED)
         else:
             # This should NOT return the errors to not reveal internal server errors. Instead this SHOULD be logged. But this is the insecure first version.
             return JsonResponse({}, status=status.HTTP_400_BAD_REQUEST)
@@ -314,7 +314,7 @@ def anwendung_motivation_konsequenz_list(request, anwendung_name, motivation_nam
         konsequenz_serializer = KonsequenzSerializer(data=konsequenz_data)
         if konsequenz_serializer.is_valid():
             konsequenz_serializer.save()
-            return JsonResponse({}, status=status.HTTP_201_CREATED)
+            return JsonResponse(konsequenz_serializer.data, status=status.HTTP_201_CREATED)
         else:
             return JsonResponse({}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -379,7 +379,7 @@ def anwendung_ansatz_anforderung_list(request, anwendung_name, ansatz_name):
         ansatz_serializer = AnsatzSerializer(data=ansatz_data)
         if ansatz_serializer.is_valid():
             ansatz_serializer.save()
-            return JsonResponse({}, status=status.HTTP_201_CREATED)
+            return JsonResponse(ansatz_serializer.data, status=status.HTTP_201_CREATED)
         else:
             return JsonResponse({}, status=status.HTTP_400_BAD_REQUEST)
 
