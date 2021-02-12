@@ -375,11 +375,11 @@ def anwendung_ansatz_anforderung_list(request, anwendung_name, ansatz_name):
 
     # POST for anforderungen
     elif request.method == 'POST':
-        ansatz_data = JSONParser().parse(request)
-        ansatz_serializer = AnsatzSerializer(data=ansatz_data)
-        if ansatz_serializer.is_valid():
-            ansatz_serializer.save()
-            return JsonResponse(ansatz_serializer.data, status=status.HTTP_201_CREATED)
+        anforderung_data = JSONParser().parse(request)
+        anforderung_serializer = AnforderungSerializer(data=anforderung_data)
+        if anforderung_serializer.is_valid():
+            anforderung_serializer.save()
+            return JsonResponse(anforderung_serializer.data, status=status.HTTP_201_CREATED)
         else:
             return JsonResponse({}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -397,14 +397,14 @@ def anwendung_ansatz_anforderung_list(request, anwendung_name, ansatz_name):
 @api_view(['GET', 'PUT', 'DELETE'])
 def anwendung_ansatz_anforderung_details(request, anwendung_name, ansatz_name, anforderung_name):
     try:
-        anforderung = Anforderung.objects.get(name = anforderung_name, ansatz__name = ansatz_name, ansatz_anwendung__name = anwendung_name)
+        anforderung = Anforderung.objects.get(name = anforderung_name, ansatz__name = ansatz_name, ansatz__anwendung__name = anwendung_name)
     except Anforderung.DoesNotExist:
         return JsonResponse({'message': 'ansatz not found'}, status=status.HTTP_404_NOT_FOUND)
 
     # GET for a specific Anforderung
     if request.method == 'GET':
-        anforderun_serializer = AnforderungSerializer(anforderung)
-        return JsonResponse(anforderun_serializer.data, status=status.HTTP_200_OK)
+        anforderung_serializer = AnforderungSerializer(anforderung)
+        return JsonResponse(anforderung_serializer.data, status=status.HTTP_200_OK)
 
     # PUT for a specific Anforderung
     elif request.method == 'PUT':
