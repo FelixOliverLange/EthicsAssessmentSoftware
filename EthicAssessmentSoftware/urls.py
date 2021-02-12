@@ -14,7 +14,7 @@ urlpatterns = [
     path('anwendung/<str:anwendung_name>/stakeholder/<str:stakeholder_name>/', views.anwendung_stakeholder_details),
     path('anwendung/<str:anwendung_name>/motivation/', views.anwendung_motivation_list),
     path('anwendung/<str:anwendung_name>/motivation/<str:motivation_name>/', views.anwendung_motivation_details),
-    path('anwendung/<str:anwendung_name>/motivation/<str:motivation_name>/konsequenz', views.anwendung_motivation_konsequenz_list),
+    path('anwendung/<str:anwendung_name>/motivation/<str:motivation_name>/konsequenz/', views.anwendung_motivation_konsequenz_list),
     path('anwendung/<str:anwendung_name>/motivation/<str:motivation_name>/konsequenz/<str:konsequenz_name>/', views.anwendung_motivation_konsequenz_details),
     path('anwendung/<str:anwendung_name>/ansatz/', views.anwendung_ansatz_list),
     path('anwendung/<str:anwendung_name>/ansatz/<str:ansatz_name>/', views.anwendung_ansatz_details),
