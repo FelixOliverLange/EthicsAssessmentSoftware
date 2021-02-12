@@ -4,34 +4,35 @@ from EthicAssessmentSoftware.models import *
 # Serializer for Anwendung
 class AnwendungSerializer(serializers.ModelSerializer):
     class Meta:
-        model = ('name',)
+        model = Anwendung
+        fields = '__all__'
 
 # Serializer for Motivation
 class MotivationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Motivation
-        fields = ('name','beschreibung','schutzklasse','prioritaet','ist_recht','anwendung')
+        fields = '__all__'
 
 # Serializer for Stakeholder
 class StakeholderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Stakeholder
-        fields = ('name','beschreibung','anwendung')
+        fields = '__all__'
 
 # Serializer for Konsequenz
 class KonsequenzSerializer(serializers.ModelSerializer):
     class Meta:
         model = Konsequenz
-        fields = ('name','beschreibung','bewertung','betroffener','motivation')
+        fields = '__all__'
 
 # Serializer for Ansatz
 class AnsatzSerializer(serializers.ModelSerializer):
     class Meta:
         model = Ansatz
-        fields = ('name','beschreibung','adressiert','auswirkung','anwendung')
+        fields = '__all__'
 
 # Serializer for Anforderung
 class AnforderungSerializer(serializers.ModelSerializer):
     class Meta:
         model = Anforderung
-        fields = ('name','beschreibung','ansatz')
+        fields = '__all__'
