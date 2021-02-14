@@ -1,0 +1,883 @@
+{
+	"info": {
+		"_postman_id": "5db1eca2-de7e-40ad-812d-8dfde0ef8233",
+		"name": "EthikBackend",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Anwendung",
+			"item": [
+				{
+					"name": "anwendung",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/anwendung/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"anwendung",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "anwendung",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"myapp2\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/anwendung/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"anwendung",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "anwendung",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/anwendung/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"anwendung",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "anwendung:id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/anwendung/{{anwendung_id}}/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"anwendung",
+								"{{anwendung_id}}",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "anwendung:id",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\":\"myapp\"}"
+						},
+						"url": {
+							"raw": "{{base_url}}/anwendung/{{anwendung_id}}2/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"anwendung",
+								"{{anwendung_id}}2",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "anwendung:id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/anwendung/myapp/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"anwendung",
+								"myapp",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Stakeholder",
+			"item": [
+				{
+					"name": "stakeholder",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/anwendung/{{anwendung_id}}/stakeholder/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"anwendung",
+								"{{anwendung_id}}",
+								"stakeholder",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "stakeholder",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"mystakeholder\",\r\n    \"beschreibung\":\"my beschreibung\",\r\n    \"anwendung\":7\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/anwendung/{{anwendung_id}}/stakeholder/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"anwendung",
+								"{{anwendung_id}}",
+								"stakeholder",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "stakeholder",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/anwendung/{{anwendung_id}}/stakeholder/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"anwendung",
+								"{{anwendung_id}}",
+								"stakeholder",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "stakeholder:id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/anwendung/{{anwendung_id}}/stakeholder/{{stakeholder_id}}/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"anwendung",
+								"{{anwendung_id}}",
+								"stakeholder",
+								"{{stakeholder_id}}",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "stakeholder:id",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"mystakeholder\",\r\n    \"beschreibung\":\"my beschreibung\",\r\n    \"anwendung\":7\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/anwendung/{{anwendung_id}}/stakeholder/{{stakeholder_id}}/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"anwendung",
+								"{{anwendung_id}}",
+								"stakeholder",
+								"{{stakeholder_id}}",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "stakeholder:id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/anwendung/{{anwendung_id}}/stakeholder/{{stakeholder_id}}/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"anwendung",
+								"{{anwendung_id}}",
+								"stakeholder",
+								"{{stakeholder_id}}",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Motivation",
+			"item": [
+				{
+					"name": "motivation",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/anwendung/{{anwendung_id}}/motivation/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"anwendung",
+								"{{anwendung_id}}",
+								"motivation",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "motivation",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"mymotivation\",\r\n    \"beschreibung\": \"mymotivation Beschreibung\",\r\n    \"schutzklasse\": \"Menschheit\",\r\n    \"prioritaet\": \"1\",\r\n    \"is_recht\": \"True\",\r\n    \"anwendung\": 7\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/anwendung/{{anwendung_id}}/motivation/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"anwendung",
+								"{{anwendung_id}}",
+								"motivation",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "motivation",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/anwendung/{{anwendung_id}}/motivation/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"anwendung",
+								"{{anwendung_id}}",
+								"motivation",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "motivation:id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/anwendung/{{anwendung_id}}/motivation/{{motivation_id}}/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"anwendung",
+								"{{anwendung_id}}",
+								"motivation",
+								"{{motivation_id}}",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "motivation:id",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"mymotivation\",\r\n    \"beschreibung\": \"mymotivation Beschreibung2\",\r\n    \"schutzklasse\": \"Menschheit\",\r\n    \"prioritaet\": \"1\",\r\n    \"is_recht\": \"True\",\r\n    \"anwendung\": 7\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/anwendung/{{anwendung_id}}/motivation/{{motivation_id}}/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"anwendung",
+								"{{anwendung_id}}",
+								"motivation",
+								"{{motivation_id}}",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "motivation:id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/anwendung/{{anwendung_id}}/motivation/{{motivation_id}}/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"anwendung",
+								"{{anwendung_id}}",
+								"motivation",
+								"{{motivation_id}}",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Konsequenz",
+			"item": [
+				{
+					"name": "konsequenz",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/anwendung/{{anwendung_id}}/motivation/{{motivation_id}}/konsequenz/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"anwendung",
+								"{{anwendung_id}}",
+								"motivation",
+								"{{motivation_id}}",
+								"konsequenz",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "konsequenz",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"mykonsequenz\",\r\n    \"beschreibung\" : \"my beschreibung\",\r\n    \"bewertung\" : 3,\r\n    \"betroffener\": 4,\r\n    \"motivation\": 4\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/anwendung/{{anwendung_id}}/motivation/{{motivation_id}}/konsequenz/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"anwendung",
+								"{{anwendung_id}}",
+								"motivation",
+								"{{motivation_id}}",
+								"konsequenz",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "konsequenz",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/anwendung/{{anwendung_id}}/motivation/{{motivation_id}}/konsequenz/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"anwendung",
+								"{{anwendung_id}}",
+								"motivation",
+								"{{motivation_id}}",
+								"konsequenz",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "konsequenz:id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/anwendung/{{anwendung_id}}/motivation/{{motivation_id}}/konsequenz/{{konsequenz_id}}/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"anwendung",
+								"{{anwendung_id}}",
+								"motivation",
+								"{{motivation_id}}",
+								"konsequenz",
+								"{{konsequenz_id}}",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "konsequenz:id",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"mykonsequenz\",\r\n    \"beschreibung\" : \"my beschreibung\",\r\n    \"bewertung\" : -3,\r\n    \"betroffener\": 4,\r\n    \"motivation\": 4\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/anwendung/{{anwendung_id}}/motivation/{{motivation_id}}/konsequenz/{{konsequenz_id}}/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"anwendung",
+								"{{anwendung_id}}",
+								"motivation",
+								"{{motivation_id}}",
+								"konsequenz",
+								"{{konsequenz_id}}",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "konsequenz:id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/anwendung/{{anwendung_id}}/motivation/{{motivation_id}}/konsequenz/{{konsequenz_id}}/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"anwendung",
+								"{{anwendung_id}}",
+								"motivation",
+								"{{motivation_id}}",
+								"konsequenz",
+								"{{konsequenz_id}}",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Ansatz",
+			"item": [
+				{
+					"name": "ansatz",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/anwendung/{{anwendung_id}}/ansatz/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"anwendung",
+								"{{anwendung_id}}",
+								"ansatz",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ansatz",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"myansatz\",\r\n    \"beschreibung\":\"my beschreibung\",\r\n    \"adressiert\": 2,\r\n    \"auswirkung\": 1,\r\n    \"anwendung\": 7\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/anwendung/{{anwendung_id}}/ansatz/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"anwendung",
+								"{{anwendung_id}}",
+								"ansatz",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ansatz",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/anwendung/{{anwendung_id}}/ansatz/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"anwendung",
+								"{{anwendung_id}}",
+								"ansatz",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ansatz:id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/anwendung/{{anwendung_id}}/ansatz/{{ansatz_id}}/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"anwendung",
+								"{{anwendung_id}}",
+								"ansatz",
+								"{{ansatz_id}}",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ansatz:id",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"myansatz\",\r\n    \"beschreibung\":\"my beschreibung\",\r\n    \"adressiert\": 2,\r\n    \"auswirkung\": -1,\r\n    \"anwendung\": 7\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/anwendung/{{anwendung_id}}/ansatz/{{ansatz_id}}/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"anwendung",
+								"{{anwendung_id}}",
+								"ansatz",
+								"{{ansatz_id}}",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ansatz:id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/anwendung/{{anwendung_id}}/ansatz/{{ansatz_id}}/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"anwendung",
+								"{{anwendung_id}}",
+								"ansatz",
+								"{{ansatz_id}}",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Anforderung",
+			"item": [
+				{
+					"name": "anforderung",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/anwendung/{{anwendung_id}}/ansatz/{{ansatz_id}}/anforderung/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"anwendung",
+								"{{anwendung_id}}",
+								"ansatz",
+								"{{ansatz_id}}",
+								"anforderung",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "anforderung",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"myanforderung\",\r\n    \"beschreibung\": \"my beschreibung\",\r\n    \"ansatz\": 4\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/anwendung/{{anwendung_id}}/ansatz/{{ansatz_id}}/anforderung/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"anwendung",
+								"{{anwendung_id}}",
+								"ansatz",
+								"{{ansatz_id}}",
+								"anforderung",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "anforderung",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/anwendung/{{anwendung_id}}/ansatz/{{ansatz_id}}/anforderung/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"anwendung",
+								"{{anwendung_id}}",
+								"ansatz",
+								"{{ansatz_id}}",
+								"anforderung",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "anforderung:id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/anwendung/{{anwendung_id}}/ansatz/{{ansatz_id}}/anforderung/{{anforderung_id}}/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"anwendung",
+								"{{anwendung_id}}",
+								"ansatz",
+								"{{ansatz_id}}",
+								"anforderung",
+								"{{anforderung_id}}",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "anforderung:id",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"myanforderung\",\r\n    \"beschreibung\": \"my beschreibung\",\r\n    \"ansatz\": 4\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/anwendung/{{anwendung_id}}/ansatz/{{ansatz_id}}/anforderung/{{anforderung_id}}/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"anwendung",
+								"{{anwendung_id}}",
+								"ansatz",
+								"{{ansatz_id}}",
+								"anforderung",
+								"{{anforderung_id}}",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "anforderung:id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/anwendung/{{anwendung_id}}/ansatz/{{ansatz_id}}/anforderung/{{anforderung_id}}/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"anwendung",
+								"{{anwendung_id}}",
+								"ansatz",
+								"{{ansatz_id}}",
+								"anforderung",
+								"{{anforderung_id}}",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "anwendung_id",
+			"value": "myapp"
+		},
+		{
+			"key": "stakeholder_id",
+			"value": "mystakeholder"
+		},
+		{
+			"key": "motivation_id",
+			"value": "mymotivation"
+		},
+		{
+			"key": "ansatz_id",
+			"value": "myansatz"
+		},
+		{
+			"key": "anforderung_id",
+			"value": "myanforderung"
+		},
+		{
+			"key": "konsequenz_id",
+			"value": "mykonsequenz"
+		}
+	]
+}
