@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'rest_framework',
     #CORS
     'corsheaders',
+    # Swagger
+    'drf_yasg',
 ]
 
 MIDDLEWARE = [
@@ -88,7 +90,7 @@ DATABASES = {
         'NAME': 'ethicsdb',
         'USER': 'root',
         'PASSWORD': 'example',
-        'HOST': 'db',
+        'HOST': '127.0.0.1',
         'PORT': '3306'
     }
 }

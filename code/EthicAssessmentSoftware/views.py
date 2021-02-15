@@ -3,19 +3,35 @@ from django.http.response import JsonResponse
 from rest_framework import status
 from rest_framework.parsers import JSONParser
 from rest_framework.decorators import api_view
-
+from drf_yasg import openapi
+from drf_yasg.utils import swagger_auto_schema
 from EthicAssessmentSoftware.models import *
 from EthicAssessmentSoftware.serializers import *
 
 # Create your views here.
 # source: https://bezkoder.com/django-crud-mysql-rest-framework/#:~:text=First%2C%20we%20setup%20Django%20Project,operations%20(including%20custom%20finder).
-# TODO: potentially include forms from https://www.laravelcode.com/post/django-3-crud-tutorial-example-with-mysql-and-bootstrap
+
 
 # For composition of field lookups inside get() and filter(), see
 # https://docs.djangoproject.com/en/3.1/topics/db/queries/#field-lookups
-# TODO: Potentially rework GET requests fro _list methods to respect 404
+
+anwendung_response = openapi.Response('Anwendung Object', AnwendungSerializer)
+anwendung_list_response = openapi.Response('Anwendung Object', AnwendungSerializer(many=True))
+stakeholder_response = openapi.Response('Stakeholder Object', StakeholderSerializer)
+stakeholder_list_response = openapi.Response('Stakeholder Object', StakeholderSerializer(many=True))
+motivation_response = openapi.Response('Motivation Object', MotivationSerializer)
+motivation_list_response = openapi.Response('Motivation Object', MotivationSerializer(many=True))
+ansatz_response = openapi.Response('Ansatz Object', AnsatzSerializer)
+ansatz_list_response = openapi.Response('Ansatz Object', AnsatzSerializer(many=True))
+konsequenz_response = openapi.Response('Konsequenz Object', KonsequenzSerializer)
+konsequenz_list_response = openapi.Response('Konsequenz Object', KonsequenzSerializer(many=True))
+anforderung_response = openapi.Response('Anforderung Object', AnforderungSerializer)
+anforderung_list_response = openapi.Response('Anforderung Object', AnforderungSerializer(many=True))
 
 # endpoint for Anwendung
+@swagger_auto_schema(methods=['post'], request_body=AnwendungSerializer, responses={201:'', 400:''})
+@swagger_auto_schema(methods=['get'], responses={200:anwendung_list_response})
+@swagger_auto_schema(methods=['delete'], responses={200:"{'message': '{} Anwendungen were deleted successfully!'}"})
 @api_view(['GET','POST','DELETE'])
 def anwendung_list(request):
     # GET for Anwendung
@@ -46,6 +62,9 @@ def anwendung_list(request):
         return JsonResponse({},status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
 # endpoint for Anwendung details
+@swagger_auto_schema(methods=['put'], request_body=AnwendungSerializer, responses={202:'',400:''})
+@swagger_auto_schema(methods=['get'], responses={200:anwendung_response, 404:"{'message': 'the requested object does not exist'}"})
+@swagger_auto_schema(methods=['delete'], responses={200:"{'message': 'Anwendungen was deleted successfully!'}"})
 @api_view(['GET', 'PUT', 'DELETE'])
 def anwendung_details(request, anwendung_name):
     # I assume this to work via 'name'. Potentially some more DB-specific field name is requried, most docs use pk
@@ -81,6 +100,9 @@ def anwendung_details(request, anwendung_name):
         return JsonResponse({}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
 # endpoint for Stakeholder
+@swagger_auto_schema(methods=['post'], request_body=StakeholderSerializer, responses={201:'', 400:''})
+@swagger_auto_schema(methods=['get'], responses={200:stakeholder_list_response})
+@swagger_auto_schema(methods=['delete'], responses={200:"{'message':'objects deleted'}"})
 @api_view(['GET','POST','DELETE'])
 def anwendung_stakeholder_list(request, anwendung_name):
     # I assume this to work via 'name'. Potentially some more DB-specific field name is requried, most docs use pk
@@ -121,6 +143,9 @@ def anwendung_stakeholder_list(request, anwendung_name):
         return JsonResponse({}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
 # endpoint for Stakeholder details
+@swagger_auto_schema(methods=['put'], request_body=StakeholderSerializer, responses={202:'',400:'', 404:"{'message':'no matching stakeholder for name and application found'}"})
+@swagger_auto_schema(methods=['get'], responses={200:stakeholder_response, 404:"{'message':'no matching stakeholder for name and application found'}"})
+@swagger_auto_schema(methods=['delete'], responses={200:"{'message': 'Stakeholder was deleted successfully!'}", 404:"{'message':'no matching stakeholder for name and application found'}"})
 @api_view(['GET', 'PUT', 'DELETE'])
 def anwendung_stakeholder_details(request, anwendung_name, stakeholder_name):
     # get all appliceable stakeholders first
@@ -156,6 +181,9 @@ def anwendung_stakeholder_details(request, anwendung_name, stakeholder_name):
         return JsonResponse({}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
 
+@swagger_auto_schema(methods=['post'], request_body=MotivationSerializer, responses={201:'', 400:'', 404:"{'message': 'the requested object does not exist'}"})
+@swagger_auto_schema(methods=['get'], responses={200:motivation_list_response, 404:"{'message': 'the requested object does not exist'}"})
+@swagger_auto_schema(methods=['delete'], responses={200:"{'message':'objects deleted'}", 404:"{'message': 'the requested object does not exist'}"})
 @api_view(['GET', 'POST', 'DELETE'])
 def anwendung_motivation_list(request, anwendung_name):
     # This is only done here to catch cases where the declared Anwendung does not exist
@@ -195,6 +223,9 @@ def anwendung_motivation_list(request, anwendung_name):
         return JsonResponse({}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
 # endpoint for Motivation details
+@swagger_auto_schema(methods=['put'], request_body=MotivationSerializer, responses={202:'',400:'', 404:"{'message':'the specified motivation does not exist (for this application)'}"})
+@swagger_auto_schema(methods=['get'], responses={200:motivation_response, 404:"{'message':'the specified motivation does not exist (for this application)'}"})
+@swagger_auto_schema(methods=['delete'], responses={200:"{'message':'motivation has been deleted'}", 404:"{'message':'the specified motivation does not exist (for this application)'}"})
 @api_view(['GET', 'PUT', 'DELETE'])
 def anwendung_motivation_details(request, anwendung_name, motivation_name):
     # get appliceable motivation objects first
@@ -227,6 +258,9 @@ def anwendung_motivation_details(request, anwendung_name, motivation_name):
         return JsonResponse({}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
 # Endpoints for Ansatz lists
+@swagger_auto_schema(methods=['post'], request_body=AnsatzSerializer, responses={201:'', 400:'', 404:""})
+@swagger_auto_schema(methods=['get'], responses={200:ansatz_list_response, 404:""})
+@swagger_auto_schema(methods=['delete'], responses={200:"{'message':'objects deleted'}", 404:""})
 @api_view(['GET', 'POST', 'DELETE'])
 def anwendung_ansatz_list(request, anwendung_name):
     # get application first to check if it exists
@@ -263,6 +297,9 @@ def anwendung_ansatz_list(request, anwendung_name):
         return JsonResponse({}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
 # endpoint for Ansatz details
+@swagger_auto_schema(methods=['put'], request_body=AnsatzSerializer, responses={202:'',400:'', 404:"{'message':'Ansatz not found for this Anwendung or overall'}"})
+@swagger_auto_schema(methods=['get'], responses={200:ansatz_response, 404:"{'message':'Ansatz not found for this Anwendung or overall'}"})
+@swagger_auto_schema(methods=['delete'], responses={200:"{'message':'the ansatz has been deleted'}", 404:"{'message':'Ansatz not found for this Anwendung or overall'}"})
 @api_view(['GET', 'PUT', 'DELETE'])
 def anwendung_ansatz_details(request, anwendung_name, ansatz_name):
     try:
@@ -294,6 +331,9 @@ def anwendung_ansatz_details(request, anwendung_name, ansatz_name):
         return JsonResponse({'message':'this method is not allowed'},status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
 # Endpoints for Konsequenz lists
+@swagger_auto_schema(methods=['post'], request_body=KonsequenzSerializer, responses={201:'', 400:'', 404:"{'message':'no motivation found for this combination'}"})
+@swagger_auto_schema(methods=['get'], responses={200:konsequenz_list_response, 404:"{'message':'no motivation found for this combination'}"})
+@swagger_auto_schema(methods=['delete'], responses={200:"{'message':'all konsequenzen have been deleted'}", 404:"{'message':'no motivation found for this combination'}"})
 @api_view(['GET', 'POST', 'DELETE'])
 def anwendung_motivation_konsequenz_list(request, anwendung_name, motivation_name):
     #check if the combination exists
@@ -328,6 +368,9 @@ def anwendung_motivation_konsequenz_list(request, anwendung_name, motivation_nam
         return JsonResponse({}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
 # endpoint for Konsequenz details
+@swagger_auto_schema(methods=['put'], request_body=KonsequenzSerializer, responses={202:'',400:'', 404:"{'message': 'the konsequence does not exist fro the Anwendung and Motivation specified'}"})
+@swagger_auto_schema(methods=['get'], responses={200:konsequenz_response, 404:"{'message': 'the konsequence does not exist fro the Anwendung and Motivation specified'}"})
+@swagger_auto_schema(methods=['delete'], responses={200:"{'message':'the Konsequnz has been deleted'}", 404:"{'message': 'the konsequence does not exist fro the Anwendung and Motivation specified'}"})
 @api_view(['GET', 'PUT', 'DELETE'])
 def anwendung_motivation_konsequenz_details(request, anwendung_name, motivation_name, konsequenz_name):
     try:
@@ -359,6 +402,9 @@ def anwendung_motivation_konsequenz_details(request, anwendung_name, motivation_
         return JsonResponse({'message':'the method is not allowed'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
 # Endpoints for Anforderung lists
+@swagger_auto_schema(methods=['post'], request_body=AnforderungSerializer, responses={201:'', 400:'', 404:"{'message': 'no motivation found for this combination'}"})
+@swagger_auto_schema(methods=['get'], responses={200:anforderung_list_response, 404:"{'message': 'no motivation found for this combination'}"})
+@swagger_auto_schema(methods=['delete'], responses={200:"{'message':'all Anforderungen have been deleted'}", 404:"{'message': 'no motivation found for this combination'}"})
 @api_view(['GET', 'POST', 'DELETE'])
 def anwendung_ansatz_anforderung_list(request, anwendung_name, ansatz_name):
     # check if the combination exists
@@ -394,6 +440,9 @@ def anwendung_ansatz_anforderung_list(request, anwendung_name, ansatz_name):
         return JsonResponse({'message':'method not allowed'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
 # endpoint for Anforderung details
+@swagger_auto_schema(methods=['put'], request_body=AnforderungSerializer, responses={202:'',400:'', 404:"{'message': 'ansatz not found'}"})
+@swagger_auto_schema(methods=['get'], responses={200:anforderung_response, 404:"{'message': 'ansatz not found'}"})
+@swagger_auto_schema(methods=['delete'], responses={200:"{'message': 'the Anforderung has been deleted'}", 404:"{'message': 'ansatz not found'}"})
 @api_view(['GET', 'PUT', 'DELETE'])
 def anwendung_ansatz_anforderung_details(request, anwendung_name, ansatz_name, anforderung_name):
     try:
@@ -419,7 +468,7 @@ def anwendung_ansatz_anforderung_details(request, anwendung_name, ansatz_name, a
     # DELETE for a specific Anfoderung
     elif request.method == 'DELETE':
         anforderung.delete()
-        return JsonResponse({'message': 'the Ansatz has been deleted'}, status=status.HTTP_200_OK)
+        return JsonResponse({'message': 'the Anforderung has been deleted'}, status=status.HTTP_200_OK)
 
     # Backstop
     else:
