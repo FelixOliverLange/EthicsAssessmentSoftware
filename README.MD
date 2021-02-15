@@ -25,7 +25,7 @@ You can also run the application in combination with an external database server
 
 Please note that that DB sever should be MySQL / MariaDB, the application was tested using MariaDB 10.4. 
 
-In order to do so, adjust the file ./EthikBackend/settings.py to have the corresponding DB server name, database name and suitable credentials.
+In order to do so, adjust the file ./code/EthikBackend/settings.py to have the corresponding DB server name, database name and suitable credentials.
 
 If you wish to use the predefined database name in this application, simply run 
 
@@ -56,7 +56,7 @@ To install the required dependencies, run
 
 from within this repository. Perhaps best do so in a virtual environment like Venv/Conda. 
 
-Then, adjust the file ./EthikBackend/settings.py to have the suitable DB server name, 
+Then, adjust the file ./code/EthikBackend/settings.py to have the suitable DB server name, 
 database name and suitable credentials configured that you wish to use. 
 
 Then, migrate the DB by running:
@@ -84,7 +84,7 @@ If you're not a fan of MariaDB / MySQL, simply read the docs about the DB engine
 
 https://docs.djangoproject.com/en/3.1/ref/databases/
 
-and adjust the file ./EthikBackend/settings.py accordingly. 
+and adjust the file ./code/EthikBackend/settings.py accordingly. 
 
 after that, run 
 
@@ -215,6 +215,8 @@ Same goes for the Redoc UI which is available at "/redoc/", so with above standa
 
 The OpenAPI specification is also available at http://localhost:8080/swagger/?format=openapi and is in version 2.0. 
 
+The Swagger UI, OpenAPI Spec and Redoc view are kindly made possible by https://github.com/axnsan12/drf-yasg
+
 ## Via the admin interface
 For this to work, you will require a superuser that you must create first. see the 'Setup' section for details.
 
@@ -223,3 +225,13 @@ Once you have one, navigate to http://localhost:8080/admin/
 Log in to then on the left side see entries for Anwendung, Stakeholder, Motivation, Ansatz, Anforderung and Konsequenz. 
 
 By clicking on them you can see all elements currently in the system, enter new ones, edit / view existent ones or delete entries.
+
+# Acknowledgement
+I followed this tutorial:
+https://bezkoder.com/django-crud-mysql-rest-framework/#:~:text=First%2C%20we%20setup%20Django%20Project,operations%20(including%20custom%20finder). 
+which served my quite well in getting to Know Django. Apart from that, the following resources were helpful:  
+* https://docs.djangoproject.com/en/3.1/intro/tutorial03/
+* https://docs.djangoproject.com/en/3.1/topics/db/queries/#field-lookups
+* https://docs.djangoproject.com/en/3.1/topics/http/urls/
+* https://www.laravelcode.com/post/django-3-crud-tutorial-example-with-mysql-and-bootstrap
+* https://sunscrapers.com/blog/the-ultimate-tutorial-for-django-rest-framework-functional-endpoints-and-api-nesting-part-6/
