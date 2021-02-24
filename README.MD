@@ -1,6 +1,6 @@
 # Setup
 ## With Docker-Compose
-This repo contains a Dockerfile that creates a docker image of the ethics assessment software for MEESTAR-FW.
+This repo contains a Dockerfile that creates a docker image of the ethics assessment software for ESAW2.
 The also included Docker Compose file can be used to spin up that image together with a DB server that serves as persistence layer. 
 
 To run the software using docker, install docker on your system first, including docker-compose. As of 2021, a docker-desktop installation does that for you. 
@@ -122,7 +122,7 @@ If you're running a dedicated DB server, you can simply drop the DB and recreate
 `CREATE DATABASE ethicsdb;`
 
 # What the application is about
-The application you just set up allows you to document (some) outcome of MEESTAR-FW workshops as described in the project thesis available at
+The application you just set up allows you to document (some) outcome of ESAW2 workshops as described in the project thesis available at
 https://github.com/FelixOliverLange/ethikarbeit 
 
 As a small diversion, there is no data model for 'Recht' or 'Wert'. 
@@ -162,7 +162,7 @@ Motivation:
 * has a `anwendung` for which it is valid
 * has a `name` which has to be unique within the system
 * has a `beschreibung` (description) describing the motivation and other details
-* has a `shutzklasse` (protection class) which in MEESTAR-FW typically is either 'Menschheit', 'Gesellschaft', 'Organisation' or 'Individuum'
+* has a `shutzklasse` (protection class) which in ESAW2 typically is either 'Menschheit', 'Gesellschaft', 'Organisation' or 'Individuum'
 * has a `priorität` (priority) which is an integer of typically positive value, valid within its protection class 
 * has a `ist_rect` (is_right) boolean argument that is 'True' if the motivation is a right of e.g. inernational law, otherwise it is 'False'  (then it is a Wert, a Value)
 
