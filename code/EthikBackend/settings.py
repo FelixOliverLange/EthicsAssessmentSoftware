@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     #CORS
     'corsheaders',
     # Swagger
-    'drf_yasg',
+    'drf_spectacular',
 ]
 
 MIDDLEWARE = [
@@ -59,6 +59,10 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+REST_FRAMEWORK = {
+    # YOUR SETTINGS
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
 ROOT_URLCONF = 'EthikBackend.urls'
 
 TEMPLATES = [

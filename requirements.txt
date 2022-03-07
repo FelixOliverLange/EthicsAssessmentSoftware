@@ -5,4 +5,4 @@ djangorestframework==3.12.2
 PyMySQL==1.0.2
 pytz==2021.1
 sqlparse==0.4.2
-drf-yasg==1.20.0
+drf-spectacular==0.21.2

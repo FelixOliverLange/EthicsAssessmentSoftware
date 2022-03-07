@@ -15,27 +15,18 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from rest_framework import permissions
-from drf_yasg.views import get_schema_view
-from drf_yasg import openapi
-from django.conf.urls import url
 
-schema_view = get_schema_view(
-   openapi.Info(
-      title="EthicsAssessment API",
-      default_version='v1',
-   ),
-   public=True,
-   permission_classes=[permissions.AllowAny],
-)
+from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
 
 # For details about the include, see https://docs.djangoproject.com/en/3.1/topics/http/urls/#including-other-urlconfs
 # If it makes problems, either include the urls.py directly and rework the view pointers, or attempt solving this.
 urlpatterns = [
-    # Swagger
-    url(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
-    url(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
-    url(r'^redoc/$', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+    # YOUR PATTERNS
+    path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
+    path('api/schema-json/', SpectacularAPIView(renderer_classes=drf_spectacular.renderers.OpenApiJsonRenderer).as_view(), name='schema'),
+    # Optional UI:
+    path('api/schema/swagger-ui/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
+    path('api/schema/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
     # The rest
     path('admin/', admin.site.urls),
     path('', include('EthicAssessmentSoftware.urls'))

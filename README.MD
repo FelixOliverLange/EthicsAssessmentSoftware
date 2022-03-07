@@ -207,15 +207,16 @@ When using the collection keep in mind that you will have to adjust e.g. IDs in 
 
 
 ## Via Swagger UI and redoc
-The application also has a swagger UI exposed at "/swagger/", so if you've followed above setup you will find it at http://localhost:8080/swagger/
+The application also has a swagger UI exposed at "/api/schema/swagger-ui/", so if you've followed above setup you will find it at http://localhost:8080/api/schema/swagger-ui/
 
 The UI has all endpoints, responses, models and request payloads documented, so you can easily use it to test the application from within your browser.
 
-Same goes for the Redoc UI which is available at "/redoc/", so with above standard setup you can find it at http://localhost:8080/redoc/
+Same goes for the Redoc UI which is available at "/api/schema/redoc/", so with above standard setup you can find it at http://localhost:8080/api/schema/redoc/
 
-The OpenAPI specification is also available at http://localhost:8080/swagger/?format=openapi and is in version 2.0. 
+The OpenAPI specification is also available at http://localhost:8080/api/schema/ and is in version 3.0.3. 
+By default it is returned as YAML, if you need an JSON description send a request to http://localhost:8080/api/schema/?format=json
 
-The Swagger UI, OpenAPI Spec and Redoc view are kindly made possible by https://github.com/axnsan12/drf-yasg
+The Swagger UI, OpenAPI Spec and Redoc view are kindly made possible by https://github.com/tfranzel/drf-spectacular
 
 ## Via the admin interface
 For this to work, you will require a superuser that you must create first. see the 'Setup' section for details.
